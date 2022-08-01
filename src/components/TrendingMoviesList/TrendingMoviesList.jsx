@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { TrendingMovies } from '../../api/SearchApi';
-import { Ul } from './TrendingMovisList.styled';
+import { Ul, H2 } from './TrendingMovisList.styled';
 import MovieItem from '../MovieItem';
 
-const TrendingMovisList = () => {
+const TrendingMovisList = ({ homeTitle }) => {
   const [trendsMovies, setTrendsMovies] = useState([]);
 
   useEffect(() => {
@@ -21,12 +22,19 @@ const TrendingMovisList = () => {
   }, []);
 
   return (
-    <Ul>
-      {trendsMovies.map(movie => (
-        <MovieItem key={movie.id} title={movie.original_title} />
-      ))}
-    </Ul>
+    <>
+      <H2>{homeTitle}</H2>
+      <Ul>
+        {trendsMovies.map(movie => (
+          <MovieItem key={movie.id} movieDetails={movie} />
+        ))}
+      </Ul>
+    </>
   );
+};
+
+TrendingMovisList.prototype = {
+  homeTitle: PropTypes.string,
 };
 
 export default TrendingMovisList;

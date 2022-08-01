@@ -1,19 +1,24 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Li } from './MovieItem.styled';
 
-const MovieItem = ({ title }) => {
+const MovieItem = ({ movieDetails }) => {
+  const saveMovieDetails = () => {
+    localStorage.setItem('saveMovieDetails', JSON.stringify(movieDetails));
+  };
+
   return (
     <Li>
-      <a href="" alt={title}>
-        {title}
-      </a>
+      <Link to={`/movies/${movieDetails.id}`} onClick={saveMovieDetails}>
+        {movieDetails.title}
+      </Link>
     </Li>
   );
 };
 
 MovieItem.prototype = {
-  title: PropTypes.string,
+  movieDetails: PropTypes.array.isRequired,
 };
 
 export default MovieItem;
