@@ -1,28 +1,12 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
-import { SearchById } from '../api/SearchApi';
+import ButtonBack from '../components/ButtonBack';
+import GetMovieDetails from '../components/GetMovieDetails';
 
 const MovieDetails = () => {
-  const { movieId } = useParams();
-  const [moveDates, setMoveDates] = useState();
-
-  useEffect(() => {
-    SearchById(movieId)
-      .then(results => {
-        console.log(results);
-        setMoveDates(results);
-      })
-      .catch(error => {
-        console.log(error.message);
-        return error.message;
-      });
-  }, [movieId]);
-
   return (
-    <article>
-      <h2>{moveDates.original_title}</h2>
-    </article>
+    <>
+      <ButtonBack />
+      <GetMovieDetails />
+    </>
   );
 };
 

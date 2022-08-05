@@ -1,33 +1,33 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import SharedLayout from '../SharedLayout';
 
-import { Li, Header } from './App.styled.jsx';
-
-import Home from '../../pages/home';
-import Movies from '../../pages/movies';
-import MovieDetails from '../../pages/movieDetails';
+const Home = lazy(() =>
+  import('../../pages/home' /* webpackChunkName: "Home" */)
+);
+const Movies = lazy(() =>
+  import('../../pages/movies' /* webpackChunkName: "Movies" */)
+);
+const MovieDetails = lazy(() =>
+  import('../../pages/movieDetails' /* webpackChunkName: "MovieDetails" */)
+);
+const Cast = lazy(() => import('../Cast' /* webpackChunkName: "Cast" */));
+const Reviews = lazy(() =>
+  import('../Reviews' /* webpackChunkName: "Reviews" */)
+);
 
 export const App = () => {
   return (
-    <div>
-      <Header>
-        <nav>
-          <ul>
-            <Li>
-              <NavLink to="/">Home</NavLink>
-            </Li>
-            <Li>
-              <NavLink to="/movies">Movies</NavLink>
-            </Li>
-          </ul>
-        </nav>
-      </Header>
-
-      <Routes>
-        <Route path="/" element={<Home title={'Trending today'} />} />
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
         <Route path="movies" element={<Movies />} />
-        <Route path="movies/:movieId" element={<MovieDetails />} />
+        <Route path="movies/:movieId" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
         <Route path="*" element={<Home />} />
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   );
 };
