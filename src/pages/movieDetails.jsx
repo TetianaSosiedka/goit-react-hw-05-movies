@@ -1,12 +1,12 @@
 import ButtonBack from '../components/ButtonBack';
 import GetMovieDetails from '../components/GetMovieDetails';
 
-const MovieDetails = () => {
+const MovieDetails = ({ locationParam }) => {
   return (
-    <>
-      <ButtonBack />
+    <main>
+      <ButtonBack locationParam={locationParam} />
       <GetMovieDetails />
-    </>
+    </main>
   );
 };
 

@@ -12,10 +12,10 @@ const TrendingMovisList = ({ title }) => {
   const { errorMessage, trendsMovies, setApiMoveDetails } = useApiDetails();
 
   useEffect(() => {
-    setApiMoveDetails(locationPathname);
+    setApiMoveDetails({ locationPathname });
   }, [locationPathname, setApiMoveDetails]);
   return (
-    <>
+    <main>
       <H2>{title}</H2>
       {errorMessage.length === 0 && trendsMovies.length === 0 && (
         <InfoBlock>Loading ...</InfoBlock>
@@ -28,11 +28,11 @@ const TrendingMovisList = ({ title }) => {
         </Ul>
       )}
       {errorMessage.length > 0 && <InfoBlock>{errorMessage}</InfoBlock>}
-    </>
+    </main>
   );
 };
 
-TrendingMovisList.prototype = {
+TrendingMovisList.propTypes = {
   homeTitle: PropTypes.string,
 };
 

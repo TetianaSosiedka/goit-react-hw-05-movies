@@ -5,6 +5,7 @@ import {
   GetMovieDetails,
   GetCredits,
   GetReviews,
+  GetSearchMoviews,
 } from '../api/SearchApi';
 
 const useApiDetails = () => {
@@ -21,6 +22,8 @@ const useApiDetails = () => {
   const [profileActors, setProfileActors] = useState([]);
 
   const [reviews, setReviews] = useState();
+
+  const [searchMoviews, setSearchMoviews] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -75,29 +78,49 @@ const useApiDetails = () => {
       });
   };
 
-  const setApiMoveDetails = useCallback((locationPathname, movieId = 0) => {
-    switch (locationPathname) {
-      case '/':
-        getTrendingMovies();
-        break;
+  const getSearchMoviews = query => {
+    GetSearchMoviews(query)
+      .then(({ data }) => {
+        setSearchMoviews(data.results);
+        setErrorMessage('');
+      })
+      .catch(error => {
+        console.log(error.message);
+        setSearchMoviews([]);
+        setErrorMessage(`By request ${query} nothing was found.`);
+      });
+  };
 
-      case `/movies/${movieId}`:
-        getMoveiDelalies(movieId);
-        break;
+  const setApiMoveDetails = useCallback(
+    ({ locationPathname, movieId = 0, query = '' }) => {
+      switch (locationPathname) {
+        case '/':
+          getTrendingMovies();
+          break;
 
-      case `/movies/${movieId}/cast`:
-        setCredits(movieId);
-        break;
+        case `/movies/${movieId}`:
+          getMoveiDelalies(movieId);
+          break;
 
-      case `/movies/${movieId}/reviews`:
-        getReview(movieId);
-        break;
+        case `/movies/${movieId}/cast`:
+          setCredits(movieId);
+          break;
 
-      default:
-        console.log('hook error');
-        break;
-    }
-  }, []);
+        case `/movies/${movieId}/reviews`:
+          getReview(movieId);
+          break;
+
+        case `/movies?query=${query}`:
+          getSearchMoviews(query);
+          break;
+
+        default:
+          console.log('hook error');
+          break;
+      }
+    },
+    []
+  );
 
   return {
     errorMessage,
@@ -111,6 +134,7 @@ const useApiDetails = () => {
     poster,
     profileActors,
     reviews,
+    searchMoviews,
     setApiMoveDetails,
   };
 };

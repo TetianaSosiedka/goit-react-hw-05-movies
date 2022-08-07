@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { Li } from './MovieItem.styled';
-
 const MovieItem = ({ movieDetails }) => {
   return (
-    <Li>
+    <li>
       <Link to={`/movies/${movieDetails.id}`}>{movieDetails.title}</Link>
-    </Li>
+    </li>
   );
 };
 

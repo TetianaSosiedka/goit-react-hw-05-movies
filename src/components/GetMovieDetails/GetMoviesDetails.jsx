@@ -28,7 +28,7 @@ const GetMoviesDetails = () => {
   } = useApiDetails();
 
   useEffect(() => {
-    setApiMoveDetails(locationPathname, movieId);
+    setApiMoveDetails({ locationPathname, movieId });
   }, [locationPathname, movieId, setApiMoveDetails]);
 
   const renderGanres = () => {

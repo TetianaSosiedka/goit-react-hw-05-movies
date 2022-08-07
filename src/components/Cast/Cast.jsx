@@ -9,10 +9,10 @@ const Cast = () => {
     useApiDetails();
 
   const { movieId } = useParams();
-  const locationPathname = useLocation().pathname;
+  const locationPathname = useLocation().pathname || '';
 
   useEffect(
-    () => setApiMoveDetails(locationPathname, movieId),
+    () => setApiMoveDetails({ locationPathname, movieId }),
     [locationPathname, movieId, setApiMoveDetails]
   );
 
@@ -23,22 +23,23 @@ const Cast = () => {
       )}
       {errorMessage.length > 0 && <InfoBlock>{errorMessage}</InfoBlock>}
       <ul>
-        {profileActors.map(
-          actor =>
-            [basicUrl, actor.profile_path].join('') && (
-              <li key={actor.id}>
-                <img
-                  src={[basicUrl, actor.profile_path].join('')}
-                  //src="http://dummyimage.com/150x200/329fd6.gif&text=Actor+Photo!"
-                  alt={actor.name}
-                  width="150"
-                  loading="lazy"
-                />
-                <p>{actor.name}</p>
-                <p>Character: {actor.character}</p>
-              </li>
-            )
-        )}
+        {profileActors.map(actor => {
+          const posterPath = actor.profile_path
+            ? [basicUrl, actor.profile_path].join('')
+            : 'http://dummyimage.com/150x200/329fd6.gif&text=Actor+Photo!';
+          return (
+            <li key={actor.id}>
+              <img
+                src={posterPath}
+                alt={actor.name}
+                width="150"
+                loading="lazy"
+              />
+              <p>{actor.name}</p>
+              <p>Character: {actor.character}</p>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

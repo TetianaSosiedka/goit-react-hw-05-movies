@@ -33,3 +33,11 @@ export const GetReviews = async id => {
     .get(`${URL}/movie/${id}/reviews?api_key=${KEY}&language=en-US&page=1`)
     .then(response => positiveResult(response));
 };
+
+export const GetSearchMoviews = async query => {
+  return axios
+    .get(
+      `${URL}/search/movie?api_key=${KEY}&query=${query}&language=en-US&page=1&include_adult=false`
+    )
+    .then(response => positiveResult(response));
+};
