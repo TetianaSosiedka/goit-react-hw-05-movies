@@ -21,7 +21,7 @@ const useApiDetails = () => {
 
   const [profileActors, setProfileActors] = useState([]);
 
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
 
   const [searchMoviews, setSearchMoviews] = useState([]);
 
@@ -51,7 +51,7 @@ const useApiDetails = () => {
       })
       .catch(error => {
         console.log(error.message);
-        return error.message;
+        setErrorMessage('Request error !!!');
       });
   };
 
@@ -63,7 +63,7 @@ const useApiDetails = () => {
       })
       .catch(error => {
         console.log(error.message);
-        return error.message;
+        setErrorMessage('Request error !!!');
       });
   };
 
@@ -74,7 +74,7 @@ const useApiDetails = () => {
       })
       .catch(error => {
         console.log(error.message);
-        return error.message;
+        setErrorMessage('Request error !!!');
       });
   };
 
@@ -103,10 +103,12 @@ const useApiDetails = () => {
           break;
 
         case `/movies/${movieId}/cast`:
+          getMoveiDelalies(movieId);
           setCredits(movieId);
           break;
 
         case `/movies/${movieId}/reviews`:
+          getMoveiDelalies(movieId);
           getReview(movieId);
           break;
 

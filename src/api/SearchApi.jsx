@@ -5,8 +5,9 @@ const URL = 'https://api.themoviedb.org/3';
 const BasicURL = 'https://image.tmdb.org/t/p/original';
 
 const positiveResult = response => {
-  if (response.status === 200 && response.data.total_results !== 0) {
-    return { data: response.data, BasicURL };
+  if (response.status === 200) {
+    const data = response.data.total_results !== 0 ? response.data : '';
+    return { data, BasicURL };
   }
 };
 

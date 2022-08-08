@@ -18,7 +18,11 @@ const Reviews = () => {
 
   return (
     <>
+      {errorMessage.length === 0 && reviews.length === 0 && (
+        <InfoBlock>Loading ...</InfoBlock>
+      )}
       {errorMessage.length > 0 && <InfoBlock>{errorMessage}</InfoBlock>}
+
       <ul>
         {reviews ? (
           reviews.map(review => (
