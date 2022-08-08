@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Form } from './SearchForm.styled';
 
-const SearchForm = ({ onSubmit }) => {
-  const [query, setQuery] = useState('');
+const SearchForm = ({ onSubmit, onQuery }) => {
+  const [query, setQuery] = useState(onQuery);
   const [disabled, setDisabled] = useState(true);
 
   const handleInputName = event => {
@@ -44,6 +44,7 @@ const SearchForm = ({ onSubmit }) => {
 
 SearchForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  onQuery: PropTypes.string,
 };
 
 export default SearchForm;

@@ -18,13 +18,9 @@ const Reviews = () => {
 
   return (
     <>
-      {errorMessage.length === 0 && reviews.length === 0 && (
-        <InfoBlock>Loading ...</InfoBlock>
-      )}
       {errorMessage.length > 0 && <InfoBlock>{errorMessage}</InfoBlock>}
-
       <ul>
-        {reviews ? (
+        {reviews.length ? (
           reviews.map(review => (
             <li key={review.id}>
               <h3>Author: {review.author}</h3>

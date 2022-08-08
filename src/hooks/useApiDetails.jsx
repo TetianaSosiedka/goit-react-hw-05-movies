@@ -30,6 +30,9 @@ const useApiDetails = () => {
   const getTrendingMovies = () => {
     TrendingMovies()
       .then(({ data }) => {
+        if (!data) {
+          return;
+        }
         setTrendsMovies(data.results);
       })
       .catch(error => {
@@ -41,6 +44,9 @@ const useApiDetails = () => {
   const getMoveiDelalies = movieId => {
     GetMovieDetails(movieId)
       .then(({ data, BasicURL }) => {
+        if (!data) {
+          return;
+        }
         setBasicUrl(BasicURL);
         setTitle(data.original_title);
         setReleaseDate(data.release_date.slice(0, 4));
@@ -58,6 +64,9 @@ const useApiDetails = () => {
   const setCredits = movieId => {
     GetCredits(movieId)
       .then(({ data, BasicURL }) => {
+        if (!data) {
+          return;
+        }
         setProfileActors(data.cast);
         setBasicUrl(BasicURL);
       })
@@ -70,6 +79,9 @@ const useApiDetails = () => {
   const getReview = movieId => {
     GetReviews(movieId)
       .then(({ data }) => {
+        if (!data) {
+          return;
+        }
         setReviews(data.results);
       })
       .catch(error => {

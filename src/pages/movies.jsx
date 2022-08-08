@@ -15,7 +15,7 @@ const Movies = ({ onLocation }) => {
 
   return (
     <main>
-      <SearchForm onSubmit={getSearchTitle} />
+      <SearchForm onQuery={query} onSubmit={getSearchTitle} />
       {query && <ListSeacrMovies query={query} />}
     </main>
   );
